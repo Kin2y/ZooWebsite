@@ -1,0 +1,1 @@
+So what I did was I made a register page for the user to add their name and last anme and allat. I just did more work on creating tables like customerid and tickets yk? and then umm I designed the UI of the website still doesnt look completed as im still trying to figure out the colour section in CSS for the horizontal navbar. YEH
