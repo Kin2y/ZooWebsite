@@ -15,16 +15,16 @@
 <p>old password</p>
 <input @bind-value=@oldPassword />
 <p>confirm old password</p>
-<input @bind-value=@oldPasswordConfirm />
+<input @bind-value=@newPasswordConfirm />
 <button onclick=@ChangePassword>Change Password</button>
 
 @code {
     private string newPassword;
     private string oldPassword;
-    private string oldPasswordConfirm;
+    private string newPasswordConfirm;
     private async Task ChangePassword()
     {
-        if (oldPassword == oldPasswordConfirm)
+        if (oldPassword == newPasswordConfirm)
         {
             string hashedNewPassword = PasswordUtils.HashPassword(newPassword);
             string hashedOldPassword = PasswordUtils.HashPassword(oldPassword);
