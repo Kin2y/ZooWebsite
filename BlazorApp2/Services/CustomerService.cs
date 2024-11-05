@@ -15,7 +15,7 @@ namespace BlazorApp2.Services
             _context = context;
 
         }
-        public async Task AddCustomerAync(Customer customer)
+        public async Task AddCustomerAsync(Customer customer)
         {
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
