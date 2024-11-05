@@ -3,7 +3,7 @@ using BlazorApp2.Models;
 using BlazorApp2.Services;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
-
+using BlazorApp2.Utilities;
 
 namespace BlazorApp2
 {
@@ -20,7 +20,7 @@ namespace BlazorApp2
             builder.Services.AddMudServices();
 
             builder.Services.AddDbContext<TlS2302172RzaContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 0, 29))));
-
+            builder.Services.AddSingleton<UserSession>();
 
             builder.Services.AddScoped<CustomerService>();
             var app = builder.Build();
