@@ -17,15 +17,17 @@
 
     <div>
         <label>Username:</label>
-        <InputText @bind-Value="newCustomer.Username" />
+        <InputText @bind-Value="newCustomer.Username" style="border:2px outset #000000;"/>
+        
     </div>
 
     <div>
-        <label>Password:</label>
-        <InputText @bind-Value="password" type="password" />
+        <br />
+        <label >Password:</label>
+        <InputText @bind-Value="password" type="password" style="border:2px outset #000000;" />
     </div>
 
-    <button type="submit">Register</button>
+    <button type="submit" style="background-color:#6CA62C; color: white; border:1px solid #000000; text-align: center; ">   Login   </button>
 
 </EditForm>
 
