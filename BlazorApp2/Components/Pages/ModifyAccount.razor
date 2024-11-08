@@ -10,13 +10,13 @@
 <h3>ModifyAccount</h3>
 
 
-<p>new password</p>
-<input @bind-value=@newPassword />
-<p>old password</p>
-<input @bind-value=@oldPassword />
-<p>confirm old password</p>
-<input @bind-value=@newPasswordConfirm />
-<button onclick=@ChangePassword>Change Password</button>
+<p>New password:</p>
+<input @bind-value=@newPassword style="border:2px outset #000000;" />
+<p>Old password:</p>
+<input @bind-value=@oldPassword style="border:2px outset #000000;" />
+<p>Confirm new password:</p>
+<input @bind-value=@newPasswordConfirm style="border:2px outset #000000;" />
+<button onclick=@ChangePassword style="background-color:#6CA62C; color: white; border:1px solid #000000;">Change Password</button>
 
 @code {
     private string newPassword;
