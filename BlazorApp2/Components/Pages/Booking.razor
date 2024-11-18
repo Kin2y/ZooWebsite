@@ -1,0 +1,47 @@
+﻿@page "/booking"
+@using BlazorApp2.Models
+@using BlazorApp2.Utilities
+@using BlazorApp2.Services
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@inject UserSession UserSession
+
+
+@rendermode InteractiveServer
+
+
+<h3>Booking</h3>
+
+
+@code {
+    private Customer newCustomer = new Customer();
+    private string password;
+
+    #region Hidden
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserSession.UserId != 0)
+        {
+            NavigationManager.NavigateTo("/account");
+        }
+    }
+    #endregion
+
+    private async Task HandleValidSubmit()
+    {
+        newCustomer.Password = PasswordUtils.HashPassword(password);
+        newCustomer = await CustomerService.LogIn(newCustomer);
+        if (newCustomer == null)
+        {
+            Console.WriteLine("could not log in");
+        }
+        else
+        {
+            UserSession.UserId = newCustomer.CustomerId;
+            NavigationManager.NavigateTo("/account");
+        }
+    }
+}
+
+
+

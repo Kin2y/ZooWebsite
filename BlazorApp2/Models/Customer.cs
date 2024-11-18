@@ -26,4 +26,6 @@ public partial class Customer
     public string? LastName { get; set; }
 
     public virtual ICollection<Roombooking> Roombookings { get; set; } = new List<Roombooking>();
+
+    public virtual ICollection<TicketBooking> TicketBookings { get; set; } = new List<TicketBooking>();
 }
