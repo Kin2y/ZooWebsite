@@ -23,8 +23,15 @@ namespace BlazorApp2
             builder.Services.AddSingleton<UserSession>();
 
             builder.Services.AddScoped<CustomerService>();
-            var app = builder.Build();
+            builder.Services.AddScoped<RoomService>();
+            builder.Services.AddScoped<RoombookingService>();
+            builder.Services.AddScoped<AttractionService>();
+            builder.Services.AddSingleton<UserSession>();
 
+
+
+
+            var app = builder.Build();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

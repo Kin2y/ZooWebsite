@@ -31,7 +31,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        attractions = await AttractionService.GetAttractionsAsync();
+        attractions = await AttractionService.GetAttractionAsync();
         tickets = new List<Ticket>();
     }
     private void AddTicket(int attractionId)
