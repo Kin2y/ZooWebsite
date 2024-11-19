@@ -16,7 +16,7 @@ public partial class TlS2302172RzaContext : DbContext
     {
     }
 
-    public virtual DbSet<Attraction> Attractions { get; set; }
+    public virtual DbSet<Ticket> Attractions { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
@@ -28,10 +28,10 @@ public partial class TlS2302172RzaContext : DbContext
 
     public virtual DbSet<Ticket> Tickets { get; set; }
 
-    public virtual DbSet<TicketBooking> TicketBookings { get; set; }
+    public virtual DbSet<Ticketbooking> Ticketbookings { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseMySql("name=MySqlConnection", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
+    //    => optionsBuilder.UseMySql("name=MysqlConnection", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,35 +39,14 @@ public partial class TlS2302172RzaContext : DbContext
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<Attraction>(entity =>
+        modelBuilder.Entity<Ticket>(entity =>
         {
             entity.HasKey(e => e.AttractionId).HasName("PRIMARY");
 
-            entity.ToTable("attractions");
+            entity.ToTable("attraction");
 
-            entity.Property(e => e.AttractionId).HasColumnName("attraction_id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp")
-                .HasColumnName("created_at");
-            entity.Property(e => e.Description)
-                .HasColumnType("text")
-                .HasColumnName("description");
-            entity.Property(e => e.Location)
-                .HasMaxLength(255)
-                .HasColumnName("location");
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .HasColumnName("name");
-            entity.Property(e => e.OpeningHours)
-                .HasMaxLength(100)
-                .HasColumnName("opening_hours");
-            entity.Property(e => e.Price).HasColumnName("price");
-            entity.Property(e => e.UpdatedAt)
-                .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp")
-                .HasColumnName("updated_at");
+            entity.Property(e => e.AttractionId).HasColumnName("attractionId");
+            entity.Property(e => e.Name).HasMaxLength(45);
         });
 
         modelBuilder.Entity<Customer>(entity =>
@@ -163,46 +142,42 @@ public partial class TlS2302172RzaContext : DbContext
         {
             entity.HasKey(e => e.TicketId).HasName("PRIMARY");
 
-            entity.ToTable("tickets");
+            entity.ToTable("ticket");
 
-            entity.HasIndex(e => e.AttractionId, "tickets_fk1_idx");
+            entity.HasIndex(e => e.AttractionId, "ticket_fk1_idx");
+
+            entity.HasIndex(e => e.TicketbookingId, "ticket_fk2_idx");
 
             entity.Property(e => e.TicketId).HasColumnName("ticketId");
             entity.Property(e => e.AttractionId).HasColumnName("attractionId");
-            entity.Property(e => e.PurchaseDate).HasColumnName("purchaseDate");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.UserId).HasColumnName("userId");
-            entity.Property(e => e.VisitDate).HasColumnName("visitDate");
+            entity.Property(e => e.TicketbookingId).HasColumnName("ticketbookingId");
 
             entity.HasOne(d => d.Attraction).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.AttractionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("tickets_fk1");
+                .HasConstraintName("ticket_fk1");
+
+            entity.HasOne(d => d.Ticketbooking).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.TicketbookingId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("ticket_fk2");
         });
 
-        modelBuilder.Entity<TicketBooking>(entity =>
+        modelBuilder.Entity<Ticketbooking>(entity =>
         {
-            entity.HasKey(e => new { e.CustomerId, e.TicketId })
-                .HasName("PRIMARY")
-                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+            entity.HasKey(e => e.TicketbookingId).HasName("PRIMARY");
 
-            entity.ToTable("ticket_booking");
+            entity.ToTable("ticketbooking");
 
-            entity.HasIndex(e => e.TicketId, "ticketbooking_fk1_idx");
+            entity.HasIndex(e => e.CustomerId, "ticketbooking_fk1_idx");
 
+            entity.Property(e => e.TicketbookingId).HasColumnName("ticketbookingId");
             entity.Property(e => e.CustomerId).HasColumnName("customerId");
-            entity.Property(e => e.TicketId).HasColumnName("ticketId");
-            entity.Property(e => e.DateBooked)
-                .HasMaxLength(45)
-                .HasColumnName("dateBooked");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.DateBooked).HasColumnName("dateBooked");
 
-            entity.HasOne(d => d.Customer).WithMany(p => p.TicketBookings)
+            entity.HasOne(d => d.Customer).WithMany(p => p.Ticketbookings)
                 .HasForeignKey(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("ticketbooking_fk2");
-
-            entity.HasOne(d => d.Ticket).WithMany(p => p.TicketBookings)
-                .HasForeignKey(d => d.TicketId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("ticketbooking_fk1");
         });

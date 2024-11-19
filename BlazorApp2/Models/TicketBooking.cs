@@ -3,15 +3,17 @@ using System.Collections.Generic;
 
 namespace BlazorApp2.Models;
 
-public partial class TicketBooking
+public partial class Ticketbooking
 {
+    public int TicketbookingId { get; set; }
+
     public int CustomerId { get; set; }
 
-    public int TicketId { get; set; }
+    public DateOnly Date { get; set; }
 
-    public string DateBooked { get; set; } = null!;
+    public DateOnly DateBooked { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 
-    public virtual Ticket Ticket { get; set; } = null!;
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

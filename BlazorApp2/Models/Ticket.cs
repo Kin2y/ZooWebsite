@@ -7,17 +7,11 @@ public partial class Ticket
 {
     public int TicketId { get; set; }
 
-    public int? UserId { get; set; }
-
-    public DateOnly? PurchaseDate { get; set; }
-
-    public DateOnly? VisitDate { get; set; }
-
-    public int? Quantity { get; set; }
-
     public int AttractionId { get; set; }
 
-    public virtual Attraction Attraction { get; set; } = null!;
+    public int TicketbookingId { get; set; }
 
-    public virtual ICollection<TicketBooking> TicketBookings { get; set; } = new List<TicketBooking>();
+    public virtual Ticket Attraction { get; set; } = null!;
+
+    public virtual Ticketbooking Ticketbooking { get; set; } = null!;
 }

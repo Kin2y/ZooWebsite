@@ -9,7 +9,7 @@
 
 @if (attractions != null)
 {
-    @foreach (Attraction attraction in attractions)
+    @foreach (Ticket attraction in attractions)
     {
         <div>
             @attraction.Name: £@attraction.Price
@@ -26,7 +26,7 @@ else
 
 
 @code {
-    List<Attraction> attractions;
+    List<Ticket> attractions;
     List<Ticket> tickets;
 
     protected override async Task OnInitializedAsync()
