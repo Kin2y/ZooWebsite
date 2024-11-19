@@ -1,6 +1,8 @@
 ﻿@using BlazorApp2.Models
 @using BlazorApp2.Services
 @using BlazorApp2.Utilities
+@inject TicketbookingService TicketbookingService
+@inject TicketService TicketService
 @inject UserSession UserSession
 @inject AttractionService AttractionService
 @inject NavigationManager NavigationManager
@@ -69,6 +71,16 @@ else
     private async Task BookTickets()
     {
         //this one books all the tickets in the basket
-        
+        Ticketbooking newTicketbooking = new Ticketbooking();
+        newTicketbooking.CustomerId = UserSession.UserId;
+        newTicketbooking.Date = ticketDate;
+        newTicketbooking.Date = DateOnly.FromDateTime(DateTime.Now);
+        await TicketbookingService.AddTicketbookingAsync(newTicketbooking);
+        foreach (Ticket ticket in tickets)
+        {
+            ticket.Ticketbooking = newTicketbooking;
+            await TicketService.AddTicketAsync(ticket);
+        }
+
     }
 }
