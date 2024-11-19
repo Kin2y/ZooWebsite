@@ -1,6 +1,7 @@
 ﻿using BlazorApp2.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace BlazorApp2.Services
 {
     public class TicketService

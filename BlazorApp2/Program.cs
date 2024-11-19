@@ -27,7 +27,8 @@ namespace BlazorApp2
             //builder.Services.AddScoped<RoombookingService>();
             builder.Services.AddScoped<AttractionService>();
             builder.Services.AddSingleton<UserSession>();
-
+            builder.Services.AddScoped<TicketService>();
+            builder.Services.AddScoped<TicketbookingService>();
 
 
 
