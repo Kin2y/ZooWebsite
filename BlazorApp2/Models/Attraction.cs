@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BlazorApp2.Models;
 
-public partial class Ticket
+public partial class Attraction
 {
     public int AttractionId { get; set; }
 

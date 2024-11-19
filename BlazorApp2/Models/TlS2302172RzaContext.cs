@@ -16,7 +16,7 @@ public partial class TlS2302172RzaContext : DbContext
     {
     }
 
-    public virtual DbSet<Ticket> Attractions { get; set; }
+    public virtual DbSet<Attraction> Attractions { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
@@ -30,8 +30,8 @@ public partial class TlS2302172RzaContext : DbContext
 
     public virtual DbSet<Ticketbooking> Ticketbookings { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseMySql("name=MysqlConnection", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseMySql("name=MysqlConnection", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,7 +39,7 @@ public partial class TlS2302172RzaContext : DbContext
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<Ticket>(entity =>
+        modelBuilder.Entity<Attraction>(entity =>
         {
             entity.HasKey(e => e.AttractionId).HasName("PRIMARY");
 

@@ -6,7 +6,7 @@ namespace BlazorApp2.Services
     public class TicketbookingService
     {
         private readonly TlS2302172RzaContext _context;
-        public TicketService(TlS2302172RzaContext context)
+        public TicketbookingService(TlS2302172RzaContext context)
         {
             _context = context;
         }

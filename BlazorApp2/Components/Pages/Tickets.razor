@@ -1,7 +1,11 @@
 ﻿@using BlazorApp2.Models
 @using BlazorApp2.Services
+@using BlazorApp2.Utilities
+@inject UserSession UserSession
 @inject AttractionService AttractionService
+@inject NavigationManager NavigationManager
 
+@rendermode InteractiveServer
 @page "/tickets"
 
 
@@ -9,39 +13,62 @@
 
 @if (attractions != null)
 {
-    @foreach (Ticket attraction in attractions)
+    @foreach (Attraction attraction in attractions)
     {
         <div>
             @attraction.Name: £@attraction.Price
-            <button @onclick="@(e => AddTicket(attraction.AttractionId))">Add to Basket</button>
+            <button @onclick="@(e => AddTicket(attraction.AttractionId))">Add to basket</button>
         </div>
     }
-    <button>Book Tickets</button>
+    <input type="date" min=@DateTime.Now.ToString("yyyy-MM-dd") @bind=@ticketDate>
+    <button @onclick=@BookTickets>Book Tickets</button>
 }
 else
 {
-    <div>no attractions</div>
+    <div>no attractions</div>    
 }
 
-
+@if (tickets != null && tickets.Count != 0)
+{
+    @foreach (Ticket ticket in tickets)
+    {
+        <div>@ticket.TicketId, @ticket.AttractionId</div>
+    }
+}
+else
+{
+    <div>Your tickets will show here...</div>
+}
 
 @code {
-    List<Ticket> attractions;
+    List<Attraction> attractions;
     List<Ticket> tickets;
+    DateOnly ticketDate;
+    Ticketbooking newTicketbooking;
 
     protected override async Task OnInitializedAsync()
     {
-        attractions = await AttractionService.GetAttractionAsync();
-        tickets = new List<Ticket>();
+        if (UserSession.UserId == 0)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            attractions = await AttractionService.GetAttractionsAsync();
+            tickets = new List<Ticket>();
+            newTicketbooking = new Ticketbooking();
+        }
     }
     private void AddTicket(int attractionId)
     {
+        Console.WriteLine("AddTicket button was clicked.");
         Ticket newTicket = new Ticket();
         newTicket.AttractionId = attractionId;
-        newTicket.VisitDate = DateOnly.FromDateTime(DateTime.Now);
+        tickets.Add(newTicket);
     }
-    private void BookTicekts()
+    private async Task BookTickets()
     {
-
+        //this one books all the tickets in the basket
+        
     }
 }
