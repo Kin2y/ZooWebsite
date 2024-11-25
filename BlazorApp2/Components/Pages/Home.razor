@@ -34,22 +34,24 @@
 <style>
 
     .hero-section {
-        width: 100%;
-        text-align: center;
+        width: 100%; /* Full width of the page */
+        height: 600px; /* Example height, adjust as needed */
         position: relative;
         margin: 0;
         padding: 0;
+        overflow: hidden; /* Ensures no content overflows the section */
     }
 
     .hero-image img {
-        width: 100%;
-        max-width: 1000px;
-        max-height: 900px;
-        display: block; /* Remove default spacing below images */
-        margin: 0; /* Remove any extra margins */
-        padding: 0; /* Remove any extra padding */
-        object-fit: cover;
+        width: 100%; /* Makes the image stretch to fill the container width */
+        height: 70%; /* Makes the image stretch to fill the container height */
+        max-width: none; /* Ensures no width restriction */
+        max-height: none; /* Ensures no height restriction */
+        display: block; /* Removes default spacing below images */
+        object-fit: cover; /* Keeps the image aspect ratio but ensures it covers the container */
+        position: center;
     }
+
 
     .book-tickets-button {
         position: absolute;
