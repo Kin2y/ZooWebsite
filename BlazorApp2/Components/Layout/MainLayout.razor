@@ -1,31 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
-<MudPopoverProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
-
-<MudLayout>
-    <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        My Application
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-        </NavLink>
-        <MudNavLink>hello</MudNavLink>
-    </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <NavMenu/>
-    </MudDrawer>
-    <MudMainContent>
+<div class="layout-container">
+    <div class="nav-menu">
+        <NavMenu />
+    </div>
+    <div class="content">
         @Body
-    </MudMainContent>
-</MudLayout>
-@code {
-    bool _drawerOpen = true;
+    </div>
+</div>
 
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-}
+<link rel="stylesheet" href="css/MainLayout.css" />
+
